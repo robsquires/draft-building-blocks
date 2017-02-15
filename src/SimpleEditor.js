@@ -14,9 +14,11 @@ class SimpleEditor extends React.Component {
 
 
   onChange(editorState) {
-    const startPosition = editorState.getSelection().getStartOffset();
-    const endPosition = editorState.getSelection().getEndOffset();
-    console.log('%d %d', startPosition, endPosition);
+    const prevStartKey = this.state.editorState.getSelection().getStartKey();
+    const nextStartKey = editorState.getSelection().getStartKey();
+    if (prevStartKey !== nextStartKey) {
+      console.log('Block is now %s', nextStartKey);
+    }
 
     this.setState({ editorState });
   }
