@@ -14,11 +14,14 @@ class SimpleEditor extends React.Component {
 
 
   onChange(editorState) {
-    const prevStartKey = this.state.editorState.getSelection().getStartKey();
-    const nextStartKey = editorState.getSelection().getStartKey();
-    if (prevStartKey !== nextStartKey) {
-      console.log('Block is now %s', nextStartKey);
-    }
+    const selectionState = editorState.getSelection();
+    const currentContent = editorState.getCurrentContent();
+    const anchorKey = selectionState.getAnchorKey();
+    const currentContentBlock = currentContent.getBlockForKey(anchorKey);
+    const start = selectionState.getStartOffset();
+    const end = selectionState.getEndOffset();
+    const selectedText = currentContentBlock.getText().slice(start, end);
+    console.log(selectedText);
 
     this.setState({ editorState });
   }
