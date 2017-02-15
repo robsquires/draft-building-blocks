@@ -14,6 +14,7 @@ class SimpleEditor extends React.Component {
 
 
   onChange(editorState) {
+    debugger;
     this.setState({ editorState });
   }
 
