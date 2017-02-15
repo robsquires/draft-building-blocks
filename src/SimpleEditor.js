@@ -14,7 +14,10 @@ class SimpleEditor extends React.Component {
 
 
   onChange(editorState) {
-    debugger;
+    const startPosition = editorState.getSelection().getStartOffset();
+    const endPosition = editorState.getSelection().getEndOffset();
+    console.log('%d %d', startPosition, endPosition);
+
     this.setState({ editorState });
   }
 
