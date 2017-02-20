@@ -1,8 +1,9 @@
 import React from 'react';
-import {Editor, EditorState, ContentState, CharacterMetadata} from 'draft-js';
+import {Editor, EditorState, ContentState, CharacterMetadata, convertToRaw } from 'draft-js';
 import {Panel, Button} from 'react-bootstrap';
-import './SimpleEditor.css'
-import content from './content'
+import './SimpleEditor.css';
+import content from './content';
+import JSONPretty from 'react-json-pretty';
 
 /**
  * inline style map
@@ -19,11 +20,13 @@ class SimpleEditor extends React.Component {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.highlight = this.highlight.bind(this);
+    this.save = this.save.bind(this);
     this.state = {
       editorState: EditorState.createWithContent(
         ContentState.createFromText(content)
       ),
-      selectedText: ''
+      selectedText: '',
+      rawContent: null
     };
   }
 
@@ -65,6 +68,13 @@ class SimpleEditor extends React.Component {
 
   }
 
+  save() {
+    const contentState = this.state.editorState.getCurrentContent()
+    this.setState({
+      rawContent: convertToRaw(contentState)
+    })
+  }
+
   render() {
     return (
       <div>
@@ -83,6 +93,20 @@ class SimpleEditor extends React.Component {
           Highlight
         </Button>
 
+        <Button
+          bsStyle="primary"
+          bsSize="xsmall"
+          onClick={this.save}>
+          Save
+        </Button>
+
+        { this.state.rawContent &&
+          <JSONPretty
+            id="json-pretty"
+            json={this.state.rawContent}
+            style={{ marginTop: '30px' }}
+          />
+        }
       </div>
     );
   }
