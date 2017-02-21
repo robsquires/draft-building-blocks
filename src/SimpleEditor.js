@@ -17,16 +17,23 @@ class SimpleEditor extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const editorState = this.state.editorState
-    const contentState = editorState.getCurrentContent();
+    // const contentState = editorState.getCurrentContent();
     const selectionState = editorState.getSelection();
 
-    if (contentState !== prevState.editorState.getCurrentContent()) {
-      console.log('%c Content changed', 'color: orange; font-weight: bold;');
-    }
+    const startOffset = selectionState.getStartOffset();
+    const startKey = selectionState.getStartKey();
+    const endOffset = selectionState.getEndOffset();
+    const endKey = selectionState.getEndKey();
 
-    if (selectionState !== prevState.editorState.getSelection()) {
-      console.log('%c Selection changed', 'color: red; font-weight: bold;');
-    }
+    console.log(
+      '%c %d %s %c %d %s',
+      'color: blue; font-weight: bold;',
+      startOffset,
+      startKey,
+      'color: red; font-weight: bold;',
+      endOffset,
+      endKey
+    )
   }
 
   onChange(editorState) {
