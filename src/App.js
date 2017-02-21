@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <Grid>
-         <PageHeader>The Basics - EditorState</PageHeader>
+         <PageHeader>Writing Content</PageHeader>
         <Row>
           <Col xs={12}>
             <SimpleEditor />
